@@ -1,6 +1,8 @@
-# hgss-shiny-modifier
+# gen4-ds-shiny-modifier
 
-A Python script designed to change the Shiny Pokémon encounter rate in the Pokémon HeartGold/SoulSilver Nintendo DS games. Works by modifying the Shiny rate offset in the game ROM file. Now with automatic game version detection!
+Forked from [choogiesaur's hgss-shiny-modifier](https://github.com/choogiesaur/hgss-shiny-modifier)
+
+A Python script designed to change the Shiny Pokémon encounter rate in all Gen 4 Nintendo DS Pokemon games, including: Pokémon HeartGold/SoulSilver, Diamond, Pearl, and Platinum. Works by modifying the Shiny rate offset in the game ROM file. Now with automatic game version detection!
 
 ![First shiny encounter!](https://github.com/choogiesaur/hgss-shiny-modifier/blob/main/shiny_hoothoot.png?raw=true)
 
@@ -20,7 +22,8 @@ pip install ndspy
 
 ## Usage:
 1. Place your `.nds` file (the game ROM) in the same folder as the `shiny_rate_editor.py` script.
-2. The script will auto-detect the game version and use the correct Shiny rate offset. If you want to manually set the Shiny rate offset or the new Shiny rate, you can provide them as command-line arguments. 
+2. The script will auto-detect the game version and use the correct Shiny rate offset. If you want to manually set the Shiny rate offset or the new Shiny rate, you can provide them as command-line arguments.
+If you are unsure about the offset, or want to double check it before you change the value, you can use the shiny offset tester.
 3. Run the script from your terminal, replacing `<filename>` with the name of your `.nds` file, `<shiny_offset>` with the hexadecimal value of your desired shiny rate offset (if you want to set it manually), and `<new_shiny_rate>` with your preferred shiny encounter rate. The shiny encounter rate should be a hexadecimal value between `0x0` and `0xFF`.
 
 ```bash
@@ -48,6 +51,8 @@ Here are the offsets for different versions of the game:
 | Korean HG | 0x7017C |
 | Korean SS | 0x70174 |
 | Others (Including North America) | 0x70080 |
+| US Diamond/Pearl | 0x68AC4 |
+| US Platinum | 0x79E50 |
 
 The script works by using ndspy to extract and decompress the raw ARM9 binary file from the game ROM. It then modifies the value used to determine Shiny encounter rates and reinserts the modified ARM9 binary back into the ROM file. Ideally, we would recompress the ARM9 binary before reinsertion, but this can cause crashes in some cases. So, we leave the binary decompressed, which seems to work just fine.
 
