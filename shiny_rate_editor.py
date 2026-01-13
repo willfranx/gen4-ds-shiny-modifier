@@ -2,7 +2,7 @@ import ndspy.rom
 import ndspy.codeCompression as comp
 import sys
 
-## Change shiny rate in Pokemon HeartGold/SoulSilver! ##
+## Change shiny rate in any Gen 4 (Nintendo DS) Pokemon game! ##
 # Place your .nds file in the same folder as this script.
 # Usage: python shiny_rate_editor.py <filename> [<shiny_offset>] [<new_shiny_rate>]
 
@@ -11,13 +11,25 @@ def modify_shiny_rate(filename, shiny_offset='AUTO', new_shiny_rate=0xFF):
     rom = ndspy.rom.NintendoDSRom.fromFile(filename)
     print(f'Rom Name: {rom.name.decode()} Rom idCode: {rom.idCode.decode()}')
     print(f'\nRaw arm9 byte size: {len(rom.arm9)}')
-
+    
     # Map for title IDs and their shiny offsets
     shiny_offsets = {
-        'IPKJ': 0x6FAC0, 'IPGJ': 0x6FAC0,  # Japanese HG or SS
-        'IPKS': 0x70078,  # Spanish HG
-        'IPKK': 0x7017C,  # Korean HG
-        'IPGK': 0x70174   # Korean SS
+        'IPKJ': 0x6FAC0,
+        'IPGJ': 0x6FAC0, # Japanese HG or SS
+        'IPKS': 0x70078, # Spanish HG
+        'IPKK': 0x7017C, # Korean HG
+        'IPGK': 0x70174, # Korean SS
+        
+        ## Please note: the following title ID's are for the US versions
+        # of these games. If you have another region you want to edit,
+        # you will need to find the title ID on this site:
+        # https://www.gametdb.com/DS/List?q&p=48
+        # the shiny offsets SHOULD be the same but please double check!
+        'IPKE': 0x70080, # HG
+        'IPGE': 0x70080, # SS
+        'ADAE': 0x68AC4, # Diamond
+        'APAE': 0x68AC4, # Pearl
+        'CPUE': 0x79E50, # Platinum
     }
 
     # Use appropriate shiny offset if custom offset not supplied
